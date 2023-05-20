@@ -15,7 +15,7 @@ public class Telefono {
 	public static int contador=1;
 	public static List<Telefono> TELEFONOS = new ArrayList<Telefono>();
 	
-	public static String nombresTele[] = { "Telefono1", "Telefono2", "Telefono3", "Telefono4"};
+	public static String nombresTele[] = { "Telefono1", "Telefono2", "Telefono3"};
 	
 	public Telefono(String nombre) {
 		this.nombre = nombre;	

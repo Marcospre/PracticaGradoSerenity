@@ -11,14 +11,26 @@ public class FactoriaPDF {
 	   public static void crearPdf(int valorRuta, int vueltaEjecucion, String nombreEsceneario, TituloPortada tituloPortada,
 	            Descripcion descripcion, Sprint sprint) {
 		   
-		   if (valorRuta == 0 || valorRuta == 1) {
-	            if (vueltaEjecucion == 1) {
-	                PdfCompras.crearArchvivo(nombreEsceneario);
-	                PdfCompras.crearPdfCompras(vueltaEjecucion, nombreEsceneario, tituloPortada, descripcion, sprint);
-	               
-	            } else {
-	            	PdfCompras.crearPdfCompras(vueltaEjecucion, nombreEsceneario, tituloPortada, descripcion, sprint);
-	            }
+		   if(nombreEsceneario.equalsIgnoreCase("@CompraTelefonos")) {
+			   if (valorRuta == 0 || valorRuta == 1) {
+		            if (vueltaEjecucion == 1) {
+		                PdfCompras.crearArchvivo(nombreEsceneario);
+		                PdfCompras.crearPdfComprasTelefonos(vueltaEjecucion, nombreEsceneario, tituloPortada, descripcion, sprint);
+		               
+		            } else {
+		            	PdfCompras.crearPdfComprasTelefonos(vueltaEjecucion, nombreEsceneario, tituloPortada, descripcion, sprint);
+		            }
+			   }
+		   }else if(nombreEsceneario.equalsIgnoreCase("@CompraOrdenadores")) {
+			   if (valorRuta == 0 || valorRuta == 1) {
+		            if (vueltaEjecucion == 1) {
+		                PdfCompras.crearArchvivo(nombreEsceneario);
+		                PdfCompras.crearPdfComprasOrdenadores(vueltaEjecucion, nombreEsceneario, tituloPortada, descripcion, sprint);
+		               
+		            } else {
+		            	PdfCompras.crearPdfComprasOrdenadores(vueltaEjecucion, nombreEsceneario, tituloPortada, descripcion, sprint);
+		            }
+			   } 
 		   }
 		   
 		   

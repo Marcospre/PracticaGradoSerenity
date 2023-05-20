@@ -12,6 +12,7 @@ import modelos.Telefono;
 import modelos.Usuarios;
 import utiles.componentesDelPdf.CreadorPdf;
 import utiles.componentesDelPdf.Descripcion;
+import utiles.componentesDelPdf.Ordenadores;
 import utiles.componentesDelPdf.Sprint;
 import utiles.componentesDelPdf.Telefonos;
 import utiles.componentesDelPdf.TituloPortada;
@@ -35,7 +36,7 @@ public class PdfCompras {
 		 return Creada_Ruta_Generica_Login;
 	}
 	
-	public static void crearPdfCompras(int vueltaEjecucion, String rutaEscenario, TituloPortada tituloPortada, Descripcion descripcion, Sprint sprint) {
+	public static void crearPdfComprasTelefonos(int vueltaEjecucion, String rutaEscenario, TituloPortada tituloPortada, Descripcion descripcion, Sprint sprint) {
 		Ruta_Escenario=rutaEscenario;
 		Ruta_Final=Ruta_Raiz+Ruta_Escenario+"/"; //creamos la ruta para el escenario
 		Ruta_Archivo=Ruta_Final+ rutaEscenario;//creamos la ruta para el archvivo
@@ -52,7 +53,7 @@ public class PdfCompras {
 					CreadorPdf.escribeDocumentoTele(Ruta_Archivo + vueltaEjecucion + ".pdf",
 							CreadorPdf.IMAGENES_PARA_PDF, Telefonos.TELEFONOS[vueltaEjecucion - 1]);
 				
-				}
+				
 			}else {
 				System.out.println("vuelta "+vueltaEjecucion+ Ruta_Archivo);
 				CreadorPdf.escribeDocumentoTele(Ruta_Archivo + vueltaEjecucion + ".pdf",CreadorPdf.IMAGENES_PARA_PDF, 
@@ -64,9 +65,48 @@ public class PdfCompras {
 						rutasArchivos[i] = Ruta_Archivo+i+".pdf";
 					}
 					// System.out.println("RUTA FINAL ANTES DE FUSIONAR "+ RutasPdf.RUTA_PDF_LOGIN_FINAL.getTexto());
+					
 					CreadorPdf.fusionaPdfs(Ruta_Archivo+"FinalTelefonos.pdf", rutasArchivos);
 				}
 			}
 		}
 	}
+	
+	public static void crearPdfComprasOrdenadores(int vueltaEjecucion, String rutaEscenario, TituloPortada tituloPortada, Descripcion descripcion, Sprint sprint) {
+		Ruta_Escenario=rutaEscenario;
+		Ruta_Final=Ruta_Raiz+Ruta_Escenario+"/"; //creamos la ruta para el escenario
+		Ruta_Archivo=Ruta_Final+ rutaEscenario;//creamos la ruta para el archvivo
+		Ruta_Plantilla = Ruta_Raiz + rutaEscenario +"/plantilla.pdf";
+		CreadorPdf.IMAGENES_PARA_PDF = utiles.capturasPantalla.CapturaPantalla.ImagenesPNG;
+		Creada_Ruta_Generica_Login=true;
+		
+		if (Creada_Ruta_Generica_Login) {
+
+			if (vueltaEjecucion == 1) {
+				System.out.println("vuelta 1 " + Ruta_Archivo);
+				CreadorPdf.escribePlantilla(Ruta_Plantilla, tituloPortada, descripcion,sprint);
+
+					CreadorPdf.escribeDocumentoOrde(Ruta_Archivo + vueltaEjecucion + ".pdf",
+							CreadorPdf.IMAGENES_PARA_PDF, Ordenadores.ORDENADORES[vueltaEjecucion - 1]);
+				
+				
+			}else {
+				System.out.println("vuelta "+vueltaEjecucion+ Ruta_Archivo);
+				CreadorPdf.escribeDocumentoOrde(Ruta_Archivo + vueltaEjecucion + ".pdf",CreadorPdf.IMAGENES_PARA_PDF, 
+						 Ordenadores.ORDENADORES[vueltaEjecucion - 1]);
+				if (vueltaEjecucion == Ordenadores.ORDENADORES.length) {
+					String[] rutasArchivos = new String[Ordenadores.ORDENADORES.length+1];
+					rutasArchivos[0] = Ruta_Plantilla;
+					for(int i = 1; i < Ordenadores.ORDENADORES.length+1;i++) {
+						rutasArchivos[i] = Ruta_Archivo+i+".pdf";
+					}
+					// System.out.println("RUTA FINAL ANTES DE FUSIONAR "+ RutasPdf.RUTA_PDF_LOGIN_FINAL.getTexto());
+					
+					CreadorPdf.fusionaPdfs(Ruta_Archivo+"FinalOrdenadores.pdf", rutasArchivos);
+				}
+			}
+		}
+	}
+}
+	
 

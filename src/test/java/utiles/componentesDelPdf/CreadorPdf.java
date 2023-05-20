@@ -348,7 +348,58 @@ public class CreadorPdf {
 		}
 	}
 	
-	
+	public static void escribeDocumentoOrde(String rutaArchivo, Map<String, File> imagenes2, Ordenadores ordenador) {
+
+		PdfWriter pdfWriter;
+		ImageData imageData;
+		Image image;
+		PdfDocument pdfDocument;
+		Document document;
+
+		try {
+
+			pdfWriter = new PdfWriter(rutaArchivo);
+			pdfDocument = new PdfDocument(pdfWriter);
+			document = new Document(pdfDocument);
+			Calendar cal = Calendar.getInstance();
+			Date fecha = new Date(cal.getTimeInMillis()); //
+			// SimpleDateFormat formatoDia = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			// SimpleDateFormat formatoDia =new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+
+			Map<String, File> imagenesAlInverso = imagenes2;//invertirListaImagenes(imagenes2);
+			Paragraph parrafoPasos;
+			Paragraph parrafoNombreUsuario;
+			Set<String> claves = imagenesAlInverso.keySet();
+			for (String clave : claves) {
+				imageData = ImageDataFactory.create(imagenesAlInverso.get(clave).getPath());
+				image = new Image(imageData);
+				image.setHeight(image.getImageHeight() - 160);
+				image.setWidth(image.getImageWidth() - 150);
+				image.setMarginLeft(-25f);
+				// image.setBackgroundColor(new DeviceRgb(63,169, 219));
+				image.setUnderline();
+				document.add(image);
+				// clave + " " + formatoHora.format(fecha) + " USUARIO: " +usuario
+				parrafoNombreUsuario = new Paragraph();
+				parrafoNombreUsuario.setFontSize(10f);
+				parrafoNombreUsuario.add("- Rol: " + ordenador.getTexto() + ".");
+				document.add(parrafoNombreUsuario);
+				parrafoPasos = new Paragraph();
+				parrafoPasos.setFontSize(12f);
+				parrafoPasos.add("- " + clave + " , Hora: " + formatoHora.format(fecha));// descripcion de los pasos
+				document.add(parrafoPasos);
+				//agregarMarcaAgua(document);
+			}
+			document.close();
+			// pdfDocument.close();
+
+		} catch (MalformedURLException e) { // TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) { // TODO Auto-generated catch
+			e.printStackTrace();
+		}
+	}
 	
 	public static <K extends Comparable, V> Map<String, File> invertirListaImagenes(Map<String, File> map) {
 		// crea una lista de claves de mapa y la ordena

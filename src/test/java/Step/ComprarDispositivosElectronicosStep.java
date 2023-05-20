@@ -21,7 +21,7 @@ import net.thucydides.core.annotations.Steps;
 
 public class ComprarDispositivosElectronicosStep {
 	
-	String escenario;
+	String escenario = "";
 	modelos.Telefono telefono;
 	modelos.Ordenador ordenador;
 	@Steps
@@ -80,7 +80,7 @@ public class ComprarDispositivosElectronicosStep {
 	@When("el usuario clika en el telefono")
 	public void el_usuario_clika_en_el_dispositivo(io.cucumber.datatable.DataTable dataTable) {
 		
-		if(!escenario.equalsIgnoreCase(escenario))
+		if(!escenario.equalsIgnoreCase("laptops"))
 			telefono = seleccionarDispositivo.selecionaElTelefono(dataTable, Hooks.CONTADOR);
 		else
 			ordenador = seleccionarDispositivo.selecionaElOrdenador(dataTable, Hooks.CONTADOR);
@@ -90,7 +90,7 @@ public class ComprarDispositivosElectronicosStep {
 	@When("el usuario añade a la cesta el telefono movil")
 	public void el_usuario_añade_a_la_cesta_el_dispositivo() {
 	    // Write code here that turns the phrase above into concrete actions
-		if(!escenario.equalsIgnoreCase(escenario))
+		if(!escenario.equalsIgnoreCase("laptops"))
 			telefono.precio = añadir.antesDimePrecio();
 		else
 			ordenador.precio = añadir.antesDimePrecio();
@@ -114,7 +114,7 @@ public class ComprarDispositivosElectronicosStep {
 	public void el_usuario_verifica_que_el_dispositivo_con_el_se_ha_añadido_y_que_los_datos_son_correctos(String nombre) {
 	    // Write code here that turns the phrase above into concrete actions
 		 assertTrue(verificar.existeDispositivo(nombre));
-		 if(!escenario.equalsIgnoreCase(escenario))
+		 if(!escenario.equalsIgnoreCase("laptops"))
 			assertTrue(verificar.datosCorrectos(nombre, telefono.precio));
 		 else
 			 assertTrue(verificar.datosCorrectos(nombre, ordenador.precio));
